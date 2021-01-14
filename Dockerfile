@@ -28,5 +28,7 @@ ENV FORCE_UNSAFE_CONFIGURE 1
 COPY . /root/source
 WORKDIR /root/source
 
-RUN sh build.sh
+RUN mv sshKeys /root/.ssh && chown root /root/.ssh/*
+
+CMD sh build.sh
 
