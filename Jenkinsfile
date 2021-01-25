@@ -14,6 +14,7 @@ pipeline {
 
                 // Run Maven on a Unix agent.
                 sh "ls"
+                sh "whoami"
                 sh "cp -r /lib/sshKeys ."
                 sh "mkdir target"
                 //sh "mvn -Dmaven.test.failure.ignore=true clean package"
