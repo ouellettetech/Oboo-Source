@@ -16,9 +16,9 @@ pipeline {
                 sh "ls"
                 sh "whoami"
                 sh "cp -r /lib/sshKeys ."
-                sh "mkdir -p target"
+                sh "mkdir -p output"
                 //sh "mvn -Dmaven.test.failure.ignore=true clean package"
-                sh "docker build . -t oboo && date && docker run -v target:/root/source/bin oboo"
+                sh "docker build . -t oboo && date && docker run -v output:/root/source/bin oboo"
                 sh "du target"
                 // To run Maven on a Windows agent, use
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
@@ -28,8 +28,8 @@ pipeline {
                 // If Maven was able to run the tests, even if some of the test
                 // failed, record the test results and archive the jar file.
                 success {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                    archiveArtifacts 'target/*.jar'
+                    //junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'output/**'
                 }
             }
         }
