@@ -4,6 +4,8 @@
 ##  output will be firmware binary and packages
 
 # so github is recognized
+cp -r sshKeys ~/.ssh
+chown -R root ~/.ssh
 ssh-keygen -F github.com || ssh-keyscan github.com >>~/.ssh/known_hosts
 
 printf "> Starting build\n"
