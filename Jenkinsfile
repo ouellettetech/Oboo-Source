@@ -18,7 +18,7 @@ pipeline {
                 sh "cp -r /lib/sshKeys ."
                 sh "mkdir -p target"
                 //sh "mvn -Dmaven.test.failure.ignore=true clean package"
-                sh "docker build . -t oboo && date && docker run -it -v target:/root/source/bin oboo"
+                sh "docker build . -t oboo && date && docker run -v target:/root/source/bin oboo"
                 sh "du target"
                 // To run Maven on a Windows agent, use
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
