@@ -14,9 +14,11 @@ pipeline {
 
                 // Run Maven on a Unix agent.
                 sh "ls"
+                sh "cp /lib/sshKeys ."
+                sh "mkdir target"
                 //sh "mvn -Dmaven.test.failure.ignore=true clean package"
-                //docker build . -t oboo && date && docker run -it -v /mnt/OnionSource/target:/root/source/bin oboo bash
-
+                sh "docker build . -t oboo && date && docker run -it -v target:/root/source/bin oboo bash"
+                sh "du target"
                 // To run Maven on a Windows agent, use
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
