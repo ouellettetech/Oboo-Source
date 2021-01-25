@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/ouellettetech/Oboo-Source.git'
+                //git 'https://github.com/ouellettetech/Oboo-Source.git'
 
                 // Run Maven on a Unix agent.
                 sh "ls"
