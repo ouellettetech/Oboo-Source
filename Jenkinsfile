@@ -16,7 +16,7 @@ pipeline {
                 sh "ls"
                 sh "whoami"
                 sh "cp -r /lib/sshKeys ."
-                sh "mkdir target"
+                sh "mkdir -p target"
                 //sh "mvn -Dmaven.test.failure.ignore=true clean package"
                 sh "docker build . -t oboo && date && docker run -it -v target:/root/source/bin oboo"
                 sh "du target"
