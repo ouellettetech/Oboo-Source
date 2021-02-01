@@ -9,9 +9,13 @@ ssh-keygen -F github.com || ssh-keyscan github.com >>~/.ssh/known_hosts
 printf "> Starting build\n"
 sh scripts/onion-feed-setup.sh
 git checkout .config
-if [[ ! -v PACKAGE_CHECKOUT ]]; then
+if [[ ! -v BRANCH_NAME ]]; then
+    echo "Checking out local folder"
     pushd feeds/oboo
-    git checkout PACKAGE_CHECKOUT
+    
+    if git branch -r | grep $BRANCH_NAME; then
+        git checkout $BRANCH_NAME
+    fi
     popd
 fi
 
