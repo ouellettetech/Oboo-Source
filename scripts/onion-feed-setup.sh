@@ -9,3 +9,7 @@ echo "Preparing package feeds..."
 ./scripts/feeds uninstall bluez-examples bluez-libs bluez-utils pulseaudio-daemon pulseaudio-profiles pulseaudio-tools avrdude
 ./scripts/feeds install -p onion bluez-examples bluez-libs bluez-utils pulseaudio-daemon pulseaudio-profiles pulseaudio-tools avrdude
 
+echo "Setting branch for Packages."
+cd feeds/packages
+git checkout $BRANCH_NAME || echo "Ignore Failures on checkout"
+
