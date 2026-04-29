@@ -2,7 +2,9 @@ name: Build Firmware
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - fixbuild
   pull_request:
 
 jobs:
