@@ -1,6 +1,9 @@
 #! /bin/sh
 
 echo "Preparing package feeds..."
+git config --list | grep ssl
+sudo apt-get install -y ca-certificates
+git config --list | grep ssl
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 #./scripts/feeds install -a -p onion
