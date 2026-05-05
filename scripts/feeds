@@ -170,6 +170,8 @@ sub update_feed_via($$$$$) {
 	my $relocate = shift;
 	my $force = shift;
 
+    warn "Updating Type: $type Name: $name src: $src relocate: $relocate force: $force \n";
+
 	my $m = $update_method{$type};
 	my $localpath = "./feeds/$name";
 	my $safepath = $localpath;
