@@ -183,7 +183,7 @@ sub update_feed_via($$$$$) {
 		warn "removing and recreating... \n";
 		system("rm -rf '$safepath'");
 		if ($m->{'init_branch'} and $branch) {
-			warn "Init Branch: $branch CMD: $m Branch: $branch Branch Base: $base_branch Path: $safepath \n";
+			warn "Init Branch: $branch CMD: $m->{'init_branch'} Branch: $branch Branch Base: $base_branch Path: $safepath \n";
 			system(sprintf($m->{'init_branch'}, $branch, $base_branch, $safepath)) == 0 or return 1;
 		} elsif ($m->{'init_commit'} and $commit) {
 			warn "Init commit: $commit \n";
