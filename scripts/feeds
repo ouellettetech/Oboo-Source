@@ -183,10 +183,13 @@ sub update_feed_via($$$$$) {
 		warn "removing and recreating... \n";
 		system("rm -rf '$safepath'");
 		if ($m->{'init_branch'} and $branch) {
+			warn "Init Branch: $branch \n";
 			system(sprintf($m->{'init_branch'}, $branch, $base_branch, $safepath)) == 0 or return 1;
 		} elsif ($m->{'init_commit'} and $commit) {
+			warn "Init commit: $commit \n";
 			system(sprintf($m->{'init_commit'}, $base_commit, $safepath, $safepath, $commit, $commit)) == 0 or return 1;
 		} else {
+			warn "Init plain \n";
 			system(sprintf($m->{'init'}, $src, $safepath)) == 0 or return 1;
 		}
 	} elsif ($m->{'init_commit'} and $commit) {
@@ -200,7 +203,7 @@ sub update_feed_via($$$$$) {
         warn "Updating path: $safepath CMD: $update_cmd \n";
 		system("cd '$safepath'; $update_cmd") == 0 or return 1;
 	}
-
+	warn "After Update Feed \n";
 	return 0;
 }
 
