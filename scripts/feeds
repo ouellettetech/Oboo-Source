@@ -168,7 +168,7 @@ sub update_feed_via($$$$$) {
 	my $name = shift;
 	my $src = shift;
 	my $relocate = shift;
-	my $force = shift;
+	my $force = shift // '';
 
     warn "Updating Type: $type Name: $name src: $src relocate: $relocate force: $force \n";
 
