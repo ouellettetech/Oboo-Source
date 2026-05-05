@@ -4,7 +4,7 @@
 ##  output will be firmware binary and packages
 
 # so github is recognized
-ssh-keygen -F github.com || ssh-keyscan github.com >>~/.ssh/known_hosts
+# ssh-keygen -F github.com || ssh-keyscan github.com >>~/.ssh/known_hosts
 
 printf "> Starting build\n"
 sh scripts/onion-feed-setup.sh
