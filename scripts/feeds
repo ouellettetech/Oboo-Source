@@ -180,6 +180,7 @@ sub update_feed_via($$$$$) {
 	my ($base_commit, $commit) = split(/\^/, $src, 2);
 
 	if( $relocate || !$m->{'update'} || !-d "$localpath/$m->{'controldir'}" ) {
+		warn "removing and recreating... \n";
 		system("rm -rf '$safepath'");
 		if ($m->{'init_branch'} and $branch) {
 			system(sprintf($m->{'init_branch'}, $branch, $base_branch, $safepath)) == 0 or return 1;
@@ -189,12 +190,14 @@ sub update_feed_via($$$$$) {
 			system(sprintf($m->{'init'}, $src, $safepath)) == 0 or return 1;
 		}
 	} elsif ($m->{'init_commit'} and $commit) {
+        warn "Dont update feed \n";
 		# in case git hash has been provided don't update the feed
 	} else {
 		my $update_cmd = $m->{'update'};
 		if ($force && exists $m->{'update_force'}) {
 			$update_cmd = $m->{'update_force'};
 		}
+        warn "Updating path: $safepath CMD: $update_cmd \n";
 		system("cd '$safepath'; $update_cmd") == 0 or return 1;
 	}
 
