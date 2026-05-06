@@ -29,8 +29,12 @@ jobs:
             nodejs \
             npm \
             python3
-            
+          echo "Checking Certs..."
+          git config --list | grep ssl
           sudo update-ca-certificates
+          echo "Updating Certs..."
+          git config --list | grep ssl
+          echo "After Checking Certs..."
 
       - name: Fix shell + permissions
         run: |
