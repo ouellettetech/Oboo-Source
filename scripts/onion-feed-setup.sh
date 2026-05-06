@@ -1,9 +1,9 @@
 #! /bin/sh
 
 echo "Preparing package feeds..."
-git config --list | grep ssl
+git config --list | grep ssl || true
 sudo apt-get install -y ca-certificates
-git config --list | grep ssl
+git config --list | grep ssl || true
 echo "After setup of ca certificates..."
 ./scripts/feeds update -a
 ./scripts/feeds install -a
