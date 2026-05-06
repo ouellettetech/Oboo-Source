@@ -30,10 +30,11 @@ jobs:
             npm \
             python3
           echo "Checking Certs..."
-          git config --list | grep ssl
+          git config --list | grep ssl  || true
+          echo "Running Update Ca Cert."
           sudo update-ca-certificates
           echo "Updating Certs..."
-          git config --list | grep ssl
+          git config --list | grep ssl  || true
           echo "After Checking Certs..."
 
       - name: Fix shell + permissions
