@@ -20,6 +20,7 @@ if [[ ! -v BRANCH_NAME ]]; then
 fi
 
 # build
-make -j 3
+#make -j 3
+make -j1 V=s
 
 
