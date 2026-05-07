@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 ## setup build system and launch a build
 ##  output will be firmware binary and packages
