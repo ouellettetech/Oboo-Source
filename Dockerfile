@@ -25,7 +25,6 @@ RUN apt-get update && apt-get install -y \
     libxml-parser-perl \
     default-jdk \
     python3 \
-    python2 \
     gawk \
     unzip \
     rsync \
