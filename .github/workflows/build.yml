@@ -17,39 +17,26 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install dependencies
+      - name: Build Docker image
         run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            build-essential \
-            git \
-            ca-certificates \
-            curl \
-            unzip \
-            nodejs \
-            npm \
-            python3
-          echo "Checking Certs..."
-          git config --list | grep ssl  || true
-          echo "Running Update Ca Cert."
-          sudo update-ca-certificates
-          echo "Updating Certs..."
-          git config --list | grep ssl  || true
-          echo "After Checking Certs..."
+          docker build -t oboo-builder .
 
-      - name: Fix shell + permissions
+      - name: Run firmware build
         run: |
-          chmod +x build.sh
-
-      - name: Build firmware
-        run: |
-          bash ./build.sh
+          docker run --rm \
+            -u $(id -u):$(id -g) \
+            -v ${{ github.workspace }}:/build \
+            -w /build \
+            oboo-builder \
+            bash ./build.sh
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: firmware-build
+          name: firmware
           path: |
+            bin/**
+            build_dir/**
             output/**
             build/**
             dist/**
