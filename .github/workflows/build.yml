@@ -30,6 +30,11 @@ jobs:
             oboo-builder \
             bash ./build.sh
 
+      - name: Dump CMake errors
+        if: failure()
+        run: |
+          find build_dir -name CMakeError.log -exec echo "==== {} ====" \; -exec cat {} \;
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
