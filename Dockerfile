@@ -5,36 +5,40 @@ FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
+    bison \
     build-essential \
-    vim \
-    git \
-    wget \
+    ca-certificates \
+    clang \
     curl \
-    subversion \
-    build-essential \
-    libncurses5-dev \
-    zlib1g-dev \
-    gawk \
+    default-jdk \
+    file \
     flex \
-    quilt \
+    g++ \
+    gawk \
+    gcc-multilib \
+    gettext \
+    git \
     git-core \
-    unzip \
+    libncurses5-dev \
     libssl-dev \
+    libxml-parser-perl \
+    python2.7 \
+    python3 \
     python-dev \
     python-pip \
-    libxml-parser-perl \
-    default-jdk \
-    python3 \
-    gawk \
-    unzip \
+    quilt \
     rsync \
-    file \
-    libncurses5-dev \
-    zlib1g-dev \
-    gettext \
+    subversion \
+    sudo \
+    swig \
+    unzip \
+    vim \
+    wget \
     xsltproc \
-    ca-certificates \
-    sudo
+    zlib1g-dev
+
+RUN echo "Python Version: "
+RUN python --version
 
 ENV FORCE_UNSAFE_CONFIGURE 1
 

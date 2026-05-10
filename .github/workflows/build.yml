@@ -34,6 +34,7 @@ jobs:
         if: failure()
         run: |
           find build_dir -name CMakeError.log -exec echo "==== {} ====" \; -exec cat {} \;
+          find build_dir -name CMakeOutput.log -exec echo "==== {} ====" \; -exec tail -200 {} \;
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
