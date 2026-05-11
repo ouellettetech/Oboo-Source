@@ -1,26 +1,23 @@
 #!/usr/bin/env bash
-
-## setup build system and launch a build
-##  output will be firmware binary and packages
-
-# so github is recognized
-# ssh-keygen -F github.com || ssh-keyscan github.com >>~/.ssh/known_hosts
+set -e
+set -o pipefail
 
 printf "> Starting build\n"
+
 sh scripts/onion-feed-setup.sh
+
 git checkout .config
-if [[ ! -v BRANCH_NAME ]]; then
-    echo "Checking out local folder"
-    pushd feeds/oboo
-    
-    if git branch -r | grep $BRANCH_NAME; then
-        git checkout $BRANCH_NAME
+
+if [[ -v BRANCH_NAME ]]; then
+    echo "Checking out branch: $BRANCH_NAME"
+
+    pushd feeds/oboo || exit 1
+
+    if git branch -r | grep -q "origin/$BRANCH_NAME"; then
+        git checkout "$BRANCH_NAME"
     fi
+
     popd
 fi
 
-# build
-#make -j 3
-make -j1 V=s
-
-
+make -j1 V=s 2>&1 | tee build.log

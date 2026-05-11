@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - fixbuild
+
   pull_request:
 
 jobs:
@@ -17,9 +18,14 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Cache ccache
+        uses: actions/cache@v4
+        with:
+          path: .ccache
+          key: ${{ runner.os }}-ccache
+
       - name: Build Docker image
-        run: |
-          docker build -t oboo-builder .
+        run: docker build -t oboo-builder .
 
       - name: Run firmware build
         run: |
@@ -28,21 +34,37 @@ jobs:
             -v ${{ github.workspace }}:/build \
             -w /build \
             oboo-builder \
-            bash ./build.sh
+            ./build.sh
+
+      - name: Show last build errors
+        if: failure()
+        run: |
+          if [ -f build.log ]; then
+            tail -200 build.log
+          fi
 
       - name: Dump CMake errors
         if: failure()
         run: |
-          find build_dir -name CMakeError.log -exec echo "==== {} ====" \; -exec cat {} \;
-          find build_dir -name CMakeOutput.log -exec echo "==== {} ====" \; -exec tail -200 {} \;
+          find build_dir -name CMakeError.log \
+            -exec echo "==== {} ====" \; \
+            -exec cat {} \; || true
 
-      - name: Upload artifacts
+          find build_dir -name CMakeOutput.log \
+            -exec echo "==== {} ====" \; \
+            -exec tail -200 {} \; || true
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
+
+      - name: Upload firmware artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: firmware
           path: |
             bin/**
-            build_dir/**
-            output/**
-            build/**
-            dist/**
