@@ -2,6 +2,10 @@ FROM ubuntu:18.04
 # Creates a Docker image that can be used to compile the Oboo Smart Clock build system
 # See this link for more details: https://docs.docker.com/get-started/part2/
 
+# Allow an arbitrary UID (passed in via `docker run -u`) to have a valid
+# passwd entry, so things like `whoami`/`git` that shell out to it don't fail.
+RUN chmod g=u /etc/passwd /etc/group
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
@@ -44,7 +48,7 @@ ENV FORCE_UNSAFE_CONFIGURE 1
 
 WORKDIR /build
 
-#RUN mv sshKeys /root/.ssh && chown root /root/.ssh/*
-
-CMD sh build.sh
-
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["sh", "build.sh"]

@@ -17,6 +17,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Ensure a git tag exists for CMake's git describe
+        run: |
+          git fetch --tags || true
+          if [ -z "$(git tag)" ]; then
+            git tag -f build-baseline
+          fi
 
       - name: Cache ccache
         uses: actions/cache@v4
@@ -30,7 +36,7 @@ jobs:
       - name: Run firmware build
         run: |
           docker run --rm \
-            -u $(id -u):$(id -g) \
+            -u $(id -u):0 \
             -v ${{ github.workspace }}:/build \
             -w /build \
             oboo-builder \
