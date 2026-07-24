@@ -15,6 +15,7 @@ echo "After setup of ca certificates..."
 git config --list | grep ssl || true
 
 ./scripts/feeds update -a
+./scripts/feeds install -f -p oboo oupgrade
 ./scripts/feeds install -a
 #./scripts/feeds install -a -p onion
 
